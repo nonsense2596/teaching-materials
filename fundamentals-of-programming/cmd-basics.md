@@ -432,7 +432,7 @@ cp DONTREADME.md README.md
 From left to right, permissions, owner (blurred), group names, size, last modification date then the name of the files or folders.
 
 
-## 2.4 Misc
+## 2.4 Misc useful tidbits vol1
 
 > Alternatives to reading parts of a file are ```head```, ```tail``` and ```less```. Try to find out what they do.
 
@@ -445,3 +445,103 @@ Then you can run them on it.
 
 > From ```less``` you can leave by pressing the ```Q``` button on your keyboard.
 
+## 2.5 creating and running a script locally, text editing in terminal
+
+Going to exercise 2, we make a simple bash script.
+We can naturally do it visually or through various command line utilities. We can also edit texts here in the terminal. A popular command line editor and probably the easiest to use of its kind is called nano.
+
+We can enter it by simply typing nano.
+
+```
+nano
+```
+
+![nano](https://i.imgur.com/wiWDFjK.png)
+
+Here we can type as we usually would, but the use of computer mouse and therefore the cursor is limited to copy-pasting if we run it in a window, and in a linux terminal-only system it would have no functionality whatsoever.
+
+In the bottom, there are also various options you can see. It can be quite cryptic for first timers.
+
+In the editor, you can navigate around the lines and columns with the ARROW keys. Furthermore you can use the: 
+
+- ```Shift+ARROWKEYS``` to select text
+
+- ```Ctrl+K``` to cut
+
+- ```Ctrl+U``` to insert
+
+- ```Ctrl+W``` to search for
+
+- ```Ctrl+_``` is to jump to a line or column number
+
+- ```Ctrl+O``` writes out the results to the file and 
+
+- ```Ctrl+X``` exits, also prompting file name if we hadn’t created one yet. When it prompts, just enter the name as you usually would.
+
+
+Getting back to the task, a bash shell script always starts with us telling the operating system to invoke the specified shell or program to execute the commands that we have in our script, then comes the actual content:
+
+```
+#!/bin/bash
+echo "hello, this is a bash script"
+```
+
+Then when prompted name it ```script.sh```
+
+Having it created, we can run it by typing
+
+```
+./script.sh
+```
+
+> In an actual Linux system first we would have to give execution permission as well, but here we can do without.
+
+![script](https://i.imgur.com/3S32XTO.png)
+
+You may wonder, why the ```./``` at the start. It is to signify, that this script resides in the current working directory.
+
+> You can check the full path of the current working directory with ```pwd```
+
+## 2.6 running a script globally
+
+What we did on windows regarding the environmental variables is also different.
+To see what we have, we can echo it out to the console using the following command.
+
+```
+echo $PATH
+```
+
+> To print all the other environment variables, the command you have to use is ```env```.
+
+We can add a variable locally for the current session through typing the following into the console. However it will no longer work after we close and reopen git bash.
+
+```
+export PATH=$PATH:/path/to/folder-we-want-to-add
+```
+
+If we want to make this more permanent, it has to be added to the shell configuration variables which in our case is the ```.bash_profile``` file.
+It is typically located in the home directory of the user.
+
+Let's create it (or edit it if it exists) with nano!
+
+```
+nano ~/.bash_profile
+```
+
+and add the export line above into it.
+
+If you were successful, that script can be invoked anywhere from your system by typing:
+
+```
+script.sh
+```
+
+## 2.7 Misc useful tidbits vol2
+
+Bash also stores your history of executed commands. You can always check them by typing:
+
+```
+history
+```
+
+Waht is even more useful, that you can search in the history (in multiple ways). A practical example of this is "reverse-i-search". Press ```CTRL+R``` and start typing a command. If you previously used it, it will show up. Pressing ```CTRL+R``` additional times scrolls between the recent history hits. You can escape out of the history search either by pressing ```ENTER``` executing the currently selected comment or ```CTRL+C``` closing it without doing anything else. 
