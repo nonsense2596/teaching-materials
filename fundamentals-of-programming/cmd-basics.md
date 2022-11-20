@@ -325,3 +325,123 @@ is the one displaying available wifi networks.
 
 ---
 # 2. Linux command line basics
+
+As an additional exercise, let’s do the same in a linux-like environment as well. We will cover the first half of the exercises; creating folders, files and navigating the file system.
+
+First of all, we need git bash for that, as it provides a unix-like environment and emulated bash syntax in its window.
+
+Many of them as you will see work very similarly or exactly the same as their equivalents in Windows.
+
+> IMPORTANT! While usually in Windows, both slash ```"/"``` and backslash ```"\"``` works, on Linux you have to use regular slashes ```"/"```
+
+> All the commands that we will use have very good manual pages which you can access with the ```--help``` option. For example ```cd --help```
+
+## 2.1 creating, deleting folders, navigating the file structure
+
+```mkdir``` and ```rmdir``` works exactly like in Windows with a little syntactical difference in their advanced functions.
+
+Creating and deleting a folder:
+
+```
+mkdir exercise2
+
+rmdir exercise2
+```
+
+Creating folder hierarchies:
+
+```
+mkdir {dist,src,src/{blueprints,models,models/database}}
+```
+
+We could list separated with spaces (but not commas!) as before, but this is an alternative syntax to it.
+
+What does it mean though?
+Between curly brackets, we have a list of items created at the same level in the hierarchy with the slash "/" indicating a subfolder or subfolders.
+
+```
+rootfolder
+└─ dist
+└─ src
+   └─ blueprints
+   └─ models
+      └─ database
+```
+
+Changing directories work the same way.
+We enter the folder "exercise2" then go back to its parent directory.
+```
+cd exercise2
+
+cd ../
+```
+
+A notable cd command is just ```cd``` or ```cd ~``` which navigates to the user home directory from anywhere in the system.
+
+## 2.2 creating, deleting and reading files
+
+For creating a file, ```touch``` is the command that we need.
+
+```
+touch README.md
+```
+
+If we also want to have some conent inside, ```echo``` works similarly as its Windows counterpart:
+
+```
+echo "#some heading in the readme" > README.md
+```
+
+To read a files contents, we can (among plenty others) use ```cat``` to display them in the terminal
+
+```
+cat README.md
+```
+
+For deleting a file ```rm``` is the way to go.
+
+```
+rm README.md
+```
+
+```rm``` can also delete folders if used with the ```-r``` option. Let's delete the whole ```src/``` folder structure.
+
+```
+rm -r src/
+```
+
+## 2.4 renaming, moving files and folders
+
+```mv``` can be used to both move and rename files or folders. We ~~rename~~ move the file ```README.md``` to be ```DONTREADME.md``` from now on.
+
+```
+mv README.md DONTREADME.md
+```
+
+In the meanwhile ```cp``` can be used to copy stuff around. We copy the file ```DONTREADME.md``` and create a new file (while leaving the original alone) called ```README.md``` that would have the same contents as the original.
+
+```
+cp DONTREADME.md README.md
+```
+
+## 2.3 displaying directory contents
+
+```ls``` lists the content of a directory, ```ls -l``` lists the contents formatted as a list (ll is a shorthand alis of that), while ```ls -la``` lists the hidden files as well.
+
+![ll](https://i.imgur.com/4s4jtg6.png)
+From left to right, permissions, owner (blurred), group names, size, last modification date then the name of the files or folders.
+
+
+## 2.4 Misc
+
+> Alternatives to reading parts of a file are ```head```, ```tail``` and ```less```. Try to find out what they do.
+
+> You can create a sufficiently big file by redirecting the output of ls to a file.
+For example  ``` ls -lah /c/windows/system32 > bigfile.txt ```
+Then you can run them on it.
+
+> HINT:
+![cathint](https://i.imgur.com/Jhljrnn.png)
+
+> From ```less``` you can leave by pressing the ```Q``` button on your keyboard.
+
