@@ -395,6 +395,8 @@ Everything that we tried so far was in a single user, single branch environment.
 > Example:
 ![branch example](https://i.imgur.com/51TcK5v.png)
 
+> GOOD TO KNOW: when working with remote remote repositories, ```git fetch --all``` gets all the remote branches. In newer versions of git, simply ```git checkout``` should work as well.
+
 ## 2.1 Creating and checking out a branch
 
 > For testing it out, we need a clean project, so let's practice everything we have learned so far.
@@ -690,3 +692,13 @@ git commit -m "finished merging file.txt"
 ```
 
 ![mergefin2](https://i.imgur.com/nFXEpWH.png)
+
+## 2.4 merge conflict useful tidbits
+
+```git log --merge``` shows a list of commits that have conflicting parts between the merging branches.
+
+```git merge --abort``` aabborts the merge and undoes all changes made during the merging process.
+
+If we know which of the version of a file (in its entirety) we need effectively ignoring any and all changes to it from the other branch, we can also use git checkout with specific options.
+
+```git checkout --ours FILENAME``` selects the file from the current branch and ```git checkout --theirs FILENAME``` selects the file from the merging branch.
