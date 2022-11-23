@@ -414,7 +414,7 @@ Everything that we tried so far was in a single user, single branch environment.
 
 with a single copy-pasteable command:
 ```
-mkdir ~/branch-example; cd branch-example; git init; echo "here be branches" > file.txt; git add file.txt; git commit -m "initial commit"
+mkdir ~/branch-example; cd ~/branch-example; git init; echo "here be branches" > file.txt; git add file.txt; git commit -m "initial commit"
 
 ```
 or line by line:
