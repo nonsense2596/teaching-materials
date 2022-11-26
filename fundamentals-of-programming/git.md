@@ -702,3 +702,25 @@ git commit -m "finished merging file.txt"
 If we know which of the version of a file (in its entirety) we need effectively ignoring any and all changes to it from the other branch, we can also use git checkout with specific options.
 
 ```git checkout --ours FILENAME``` selects the file from the current branch and ```git checkout --theirs FILENAME``` selects the file from the merging branch.
+
+## 2.5 detached HEAD state
+
+# 3 rebase
+
+# 4 even more useful commands
+
+## 4.1 tags
+
+## 4.2 blame
+
+## 4.3 stash
+
+## 4.4 amend
+
+## 4.5 rm
+
+## 4.6 reset
+
+## 4.7 force push
+
+## 4.8 pull requests, and reviews
