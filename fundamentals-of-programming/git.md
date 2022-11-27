@@ -705,11 +705,208 @@ If we know which of the version of a file (in its entirety) we need effectively 
 
 ## 2.5 detached HEAD state
 
+If you get the message "detached HEAD", it is nothing wrong, it is a valid state in GIT. Detached HEAD state happens if you checkout a single commit instead of a branch.
+
+Let's see that through a quick example.
+
+```
+mkdir ~/hour2project; cd ~/hour2project; git init; echo "first line" > file.txt; git add file.txt; git commit -m "first line added"; echo "second line" >> file.txt; git add file.txt; git commit -m "second line added"; echo "third line" >> file.txt; git add file.txt; git commit -m "third line added";
+```
+
+> You can copy-paste this in one go. It creates three commits, adding one more line to the file each time.
+
+> "\>\>" is the append operator in bash. It does not overwrite the file contents, but inserts to its end.
+
+Then inspecting our repository history with ```git log``` should result in something like this:
+
+![dethead1](https://i.imgur.com/H5FLP4O.png)
+
+We see the commit hashes. We can also checkout them, not only the branches.
+
+Check out one of your previous commit.
+
+```
+git checkout COMMITHASHOFSECONDCOMMIT
+```
+
+![dethead2](https://i.imgur.com/iInuuLS.png)
+
+VS Code simply shows that we are just at a previous commit - and we are.
+
+![dethead3](https://i.imgur.com/c5THV3S.png)
+
+And the command line will also show that you are at a single commit instead of a tip of a branch.
+
+![dethead4](https://i.imgur.com/yitSuvd.png)
+
+Going back in time, we can start new branches from any point.
+
 # 3 rebase
 
-# 4 even more useful commands
+Other than merge, rebase is another utility of git that helps moving changes from one branch to another one.
+
+Compared to merge, rebase "replays" the commits done in the integrated branch onto the receiving one. The main use is if we want to maintain a more compact and linear project history.
+
+We can continue working on our "hour2project"
+
+Quickly go back from the detached HEAD state, checking out master.
+
+```
+git checkout master
+```
+
+Then create and checkout a new branch from there.
+
+```
+git checkout -b feature1
+```
+
+Let's make a few commits that all modify file.txt a little bit adding a single line each commit. You can once again copy-paste the whole commande.
+
+```
+echo "fourth line" >> file.txt; git add .; git commit -m "fourth line"; echo "fifth line" >> file.txt;git add .; git commit -m "fifth line"; echo "sixth line" >> file.txt; git add .; git commit -m "sixth line"; echo "seventh line" >> file.txt; git add .; git commit -m "seventh line"; echo "eighth line" >> file.txt; git add .; git commit -m "eighth line";
+```
+
+With that, we should have a long linear history.
+
+![rebase1](https://i.imgur.com/m5agcFD.png)
+
+Now let's also modify something on master, so that we will be able to see the changes better.
+
+```
+git checkout master; echo "something" >> file2.txt; git add file2.txt; git commit -m "modified file2 on master"; git checkout feature1;
+```
+
+![rebase2](https://i.imgur.com/mJvB1iK.png)
+
+We can do rebasing automatically, as well as interactively. In the interactive editor, we have a powerful way of rewriting history by including commits, editing commit messages, or even squashing or dropping them altogether.
+
+To rebase, we have to be on the branch to be rebased. Rebase on master for now:
+
+```
+git rebase --interactive master
+```
+
+![rebase3](https://i.imgur.com/0VvVXqt.png)
+
+In our current example will pick the first commit and second commit, and squash the rest.
+
+> Squashing two or more commits means combining them into one.
+
+Replace the word "pick" with "s" or "squash" before each one but the first two.
+
+![rebase4](https://i.imgur.com/USImb3u.png)
+
+Save and close the tab and another window should appear also being part of the rebaseing process.
+
+Now we have the chance to modify the various commit messages of the rebased commits. In our case the commits participating in the squash.
+Git automatically just appends them below each other, but we can remove or modify any of them.
+
+![rebase5](https://i.imgur.com/ia6xLuD.png)
+
+> You can write here anything you want.
+
+![rebase6](https://i.imgur.com/KNSQfZo.png)
+
+Save and close this as well.
+
+![rebase7](https://i.imgur.com/mxFviWF.png)
+
+You can see as we did. We picked the fourth and the fifth commit. Squashing the rest into the fifth one to become a single commit instead, also modifying its commit message during the process.
+
+And with that, we can fast-forward merge to catch up to feature1.
+
+```
+git checkout master
+git merge feature1
+```
+
+![rebase8](https://i.imgur.com/ChdLQeI.png)
+
+## 3.1 another rebase example
+
+In our previous interactive rebase, we squashed a few commits in addition. We can use rebase with squashing on the same branch only too.
+
+Let's create a few more commits on the master.
+
+```
+echo "more" >> file.txt; git add .; git commit -m "one more"; echo "more" >> file.txt; git add .; git commit -m "two more"; echo "more" >> file.txt; git add .; git commit -m "three more";
+```
+
+So that the tip of master looks like this:
+
+![rebase9](https://i.imgur.com/E1LQk7S.png)
+
+With all three of the commits, we just added “more” to the end of the file. Let’s combine them to become a single commit instead. Here we supply it that it should rebase the last three commits starting from HEAD.
+
+```
+git rebase -i HEAD~3
+```
+
+![rebase10](https://i.imgur.com/RTOebi4.png)
+
+We should pick the first and squash the rest.
+
+![rebase11](https://i.imgur.com/CJcuER8.png)
+
+Save and close.
+
+Once again we will have the option in the new popup to either combine the commit messages or just make a brand new one.
+
+![rebase12](https://i.imgur.com/olcYGHn.png)
+
+Save and close once again.
+
+![rebase13](https://i.imgur.com/9CDT4P8.png)
+
+
+# 4. more useful commands
 
 ## 4.1 tags
+
+With tags we can mark or capture a point in the git history (so a commit). Add a little name, or even a message to it. It is typically done when we would like to mark a point to be like a numbered release version.
+
+For this section and onwards, we will create another small git project, adding a file with a few lines.
+
+```
+mkdir ~/tags-stash-and-others; cd ~/tags-stash-and-others; git init; echo "this is a line" > file.txt; git add file.txt; git commit -m "initial commit";
+```
+
+A tag can be lightweight or annotated. With the latter we can also include a message.
+
+Creating a lightweight tag is done by the following command. Here the commit identifier is optional. If we do not supply it, then git will add the tag to the commit we are on.
+
+```
+git tag TAGNAME [COMMITHASH]
+```
+
+Creating an annotated one with a message is done by the following:
+
+```
+git tag -a TAGNAME -m "TAGMESSAGE" [COMMITHASH]
+```
+
+We can list tags with simply writing ```git tag``` without options.
+
+```
+git tag 
+```
+
+And we can delete tags with the ```-d``` option.
+
+```
+git tag -d TAGNAME
+```
+
+![gittag](https://i.imgur.com/3GDFEoV.png)
+
+> Tags have to be pushed manually to a remote origin. like ``` git push origin TAGNAME ```.
+
+Lastly we can also checkout them as they were a commit or a branch (well they are just fancy names put on a commit anyway).
+
+```
+git checkout TAGNAME
+```
 
 ## 4.2 blame
 
