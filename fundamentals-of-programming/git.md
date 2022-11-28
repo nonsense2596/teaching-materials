@@ -910,14 +910,158 @@ git checkout TAGNAME
 
 ## 4.2 blame
 
+``` git blame``` shows which parts of the files are modified and by which authors.
+
+``` 
+git blame file.txt
+```
+
+![blame](https://i.imgur.com/kHFxfmo.png)
+
 ## 4.3 stash
+
+As you have learned on last weeks classes, git has 4 working areas. We will look at one more of them now: stash.
+
+Stash works like CTRL+C and CTRL+V in Windows. Like a clipboard if you would.
+
+Stash gets all uncommitted changes, remvoes them from your working area (files you work and interact with, from the text editor as well) and saves them.
+
+Later you can get the contents back from the stash.
+
+Let's see this feature visually. We add something to 'file.txt', and also create a brand new file called 'file2.txt'.
+
+```
+echo "something" >> file.txt
+touch file2.txt
+```
+
+![stash1](https://i.imgur.com/uy6HKxQ.png)
+
+Typing ```git stash``` will stash the changes (removes "something") but will leave 'file2.txt' alone, as we did not add it to git.
+
+```
+git stash
+```
+
+The reverse of ```git stash``` is ```git pop``` that retrieves the latest stash content from the stash and apply it on our current workplace.
+
+If we also want to stash untracked files, the ```-u``` option is the one we need.
+
+```
+git stash -u
+```
+
+We can list current stashes (as we can have multiple) with ```git stash list```.
+
+```
+git stash list
+```
+
+![stash2](https://i.imgur.com/DR8MdGc.png)
+
+And last but not least, pop can be supplied with a parameter to retrieve a specific stash. ```git stash pop stash@{NUMBER}``` where NUMBER is the index of the stash as seen above in the stash listing. Let's retrieve our one and only stash content for now so we can continue on.
+
+```
+git stash pop stash@{0}
+```
+
+where number is the one 
+
 
 ## 4.4 amend
 
+With amend, we can modify the last commit: content or message too easily.
+
+Let's see it with an example. We add to the file, stage and commit it.
+
+```
+echo "hello  world" >> file.txt; git add file.txt; git commit -m "added hello world"; 
+```
+
+We set "added hello world" as the commit message.
+
+![amend1](https://i.imgur.com/c15JbWP.png)
+
+Then with amend, change this:
+
+```
+git commit --amend -m "new message"
+```
+
+![amend2](https://i.imgur.com/N0L2bPt.png)
+
+```
+echo "final line" >> file.txt; git add file.txt;
+```
+
+and
+
+```
+git commit --amend --no-edit
+```
+
+We tell git to amend to the previous commit (so do not create a new one), add the staged changes to it and with the ```--no-edit``` option we also specify that we do not want to  modify the commit message.
+
+
 ## 4.5 rm
+
+```git rm``` removes a file from the working tree; so from git, and from our working area as well.
 
 ## 4.6 reset
 
+Reset, well resets the HEAD to a specific state. With it, we can undo specific changes in our history.
+
+Hard reset is the most dangerous option. Both the HEAD, the working directory and the git history reset as well. This cannot be undone.
+
+To try it out, we add a few commits first as usual
+
+```
+echo "change" >> file.txt; git add .; git commit -m "change1"; echo "change" >> file.txt; git add .; git commit -m "change2"; echo "change" >> file.txt; git add .; git commit -m "change3"; echo "change" >> file.txt; git add .; git commit -m "change4";
+```
+
+to have something like the following:
+
+![reset1](https://i.imgur.com/8OBHk4y.png)
+
+If we would like to hard reset git to "change1", copy its hash from either Git Graph in VS Code or from git log in your console.
+
+```
+git reset --hard COMMITHASH
+```
+
+![reset2](https://i.imgur.com/8Sj46AB.png)
+
+A mixed reset is less destructive. It resets the staging index to the state of the specified commit.
+
+Everything else that was added or modified in git after has been moved to the working directory becoming uncommited and unstaged changes.
+
+Add our changes again:
+
+```
+echo "change" >> file.txt; git add .; git commit -m "change2"; echo "change" >> file.txt; git add .; git commit -m "change3"; echo "change" >> file.txt; git add .; git commit -m "change4";
+```
+
+then reset now with the ```--mixed``` option once again to the "change1" commit.
+
+> Mixed is the default option.
+
+```
+git reset --hard COMMITHASH
+```
+
+![reset3](https://i.imgur.com/zu2THhk.png)
+
+
 ## 4.7 force push
+
+We have already learned that ```git push``` sends the changes made on a local branch to a remote one.
+
+The usual process is first pulling the changes, then pushing them back to the remote branch.
+
+However there may be cases where there are conflicts between the two histories. Like in the case of rebasing and squashing where we modified the history. That's where we can force push our current branch overwriting the remote one.
+
+```
+git push -f
+```
 
 ## 4.8 pull requests, and reviews
