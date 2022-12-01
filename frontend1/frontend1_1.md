@@ -97,4 +97,136 @@ Examples are links, images, input elements or inline text containers:
 some text <span style="color: red;"> with some parts in red </span> some other text
 ```
 
-## 1.4
+Let's see an example of embedding elements into each other:
+We will use the ```div``` content division element as the parent block element, and put block as well as inline elements into it:
+
+```
+<div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vulputate ligula. <span style="background-color:yellow">Integer tortor velit</span>, suscipit id scelerisque non, convallis vel neque. Ut sagittis dui ut dignissim venenatis.
+</div>
+<hr/>
+<div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vulputate ligula. <p style="background-color:yellow">Integer tortor velit</p>, suscipit id scelerisque non, convallis vel neque. Ut sagittis dui ut dignissim venenatis.
+</div>
+```
+
+![blockinline](https://i.imgur.com/YAKT4al.png)
+
+We can clearly see, that a ```span``` does not break the flow of its parent, while a ```p``` does by starting strictly at a new line.
+
+
+## 1.4 HTML standards and stucture
+
+HTML is **very** tolerant as to what is syntactically allowed and what will or will not work.
+
+### 1.4.1 HTML template
+
+A boilerplate HTML "template" can be the following:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--... some stuff here ... -->
+        <title>My first website</title>
+    </head>
+    <body>
+        <!--... some stuff here ... -->
+    </body>
+</html>
+```
+
+In the first line we declare the version of HTML standard that we use. Our example tells the browser to treat the site as HTML5. 
+
+The second line is the opening starter ```<html>``` tag which is the root element of a page; inside it, the ```lang``` specifies the main language of texts used in the page.
+
+In the head we can define various metadata ```<head>``` that are invisible to the user. It most notably contains information to search engines, character encoding and viewport settings and linked resources like JavaScripts, Stylesheets, fonts and so on. 
+It also hosts the ```title``` tag which is the small text appearing on the top of the web browser on the tabs.
+
+Lastly, the ```body``` hosts the content of the website.
+
+> Once again, HTML is **VERY** flexible of what it allows. You can experiment which elements or tags can be removed - however keep in mind that it will work in *most cases*, therefore you might encounter situations where leaving out a specific element, or a wrong order can cause weird issues which are pretty hard to debug.
+
+### 1.4.2 body template
+
+Contents of the body can be further deconstructed into building blocks [semantically](https://developer.mozilla.org/en-US/docs/Glossary/Semantics#semantic_elements):
+
+```
+<!DOCTYPE html>
+<html>
+    <body>
+        <header>
+            title
+            <nav>
+                menu elements
+            </nav>
+        </header>
+        <main>
+            <section>
+                main section
+                <article>
+                    first text content
+                </article>
+            </section>
+            <aside>
+                sidebar
+            </aside>
+        </main>
+        <footer>
+            footer
+        </footer>
+    </body>
+</html>
+```
+
+```<header>``` is well.. the header of the page or a section containing menus, title, possibly search bar or settings as well.
+
+The ```<nav>``` element signifies that it will contain navigation links to sections or other pages, sites.
+
+```<aside>``` can be some sidebar with no relation to the main section
+
+Main (```<main>```) is the dominant content, the core of the page contents.
+
+```<section>``` is a generic standalone section of a document, can be very similar
+to the ```<article>``` which is a smaller self-contained composite element in a page: like a news article, or a comment or blogpost on a forum.
+
+Lastly, the ```<footer>``` is the bottom of the page usually with hyperlinks, sitemap or contact information.
+
+> If we were to put all of these into a webpage, the result would look something like the following figure
+
+![semantic1](https://i.imgur.com/DujEsNC.png)
+
+Which would be for human eyes virtually undistinguishable from the following: 
+
+```
+<!DOCTYPE html>
+<html>
+    <body>
+        <div>
+            title
+            <div>
+                menu elements
+            </div>
+        </div>
+        <div>
+            <div>
+                main section
+                <div>
+                    first text content
+                </div>
+            </div>
+            <div>
+                sidebar
+            </div>
+        </div>
+        <div>
+            footer
+        </div>
+    </body>
+</html>
+```
+
+However, the devil's in the detail. It is semantic HTML, by default it does not apply any styles on our elements, however they are more descriptive by design and are used extensively by search enginesn and accessibility software like screen readers.
+
+> A useful resource on what section to use and when: [HTML5 element flowchart](http://html5doctor.com/downloads/h5d-sectioning-flowchart.pdf)
+
