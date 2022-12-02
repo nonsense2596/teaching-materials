@@ -84,6 +84,7 @@ Examples of block-level elements are paragraphs, lists, navigation or footer men
 ### Inline elements:
 - in the browser, they appear in the same line as the previous element, right after it
 - can be part of the content a block level element
+- height and width can NOT be set
 
 Examples are links, images, input elements or inline text containers:
 
@@ -114,6 +115,8 @@ We will use the ```div``` content division element as the parent block element, 
 
 We can clearly see, that a ```span``` does not break the flow of its parent, while a ```p``` does by starting strictly at a new line.
 
+> There is also a third type, "inline-block" elements which combines functionalities of both block and inline elements. We will see it later on the course.
+
 
 ## 1.4 HTML standards and stucture
 
@@ -135,6 +138,9 @@ A boilerplate HTML "template" can be the following:
     </body>
 </html>
 ```
+
+> Comments in HTML can be done the following way: 
+\<!-- this is a comment -->
 
 In the first line we declare the version of HTML standard that we use. Our example tells the browser to treat the site as HTML5. 
 
@@ -196,7 +202,7 @@ Lastly, the ```<footer>``` is the bottom of the page usually with hyperlinks, si
 
 ![semantic1](https://i.imgur.com/DujEsNC.png)
 
-Which would be for human eyes virtually undistinguishable from the following: 
+The resulting page by simply looking at would be virtually undistinguishable from the following: 
 
 ```
 <!DOCTYPE html>
@@ -228,5 +234,148 @@ Which would be for human eyes virtually undistinguishable from the following:
 
 However, the devil's in the detail. It is semantic HTML, by default it does not apply any styles on our elements, however they are more descriptive by design and are used extensively by search enginesn and accessibility software like screen readers.
 
+```<div>``` is just a generic container for any elements in a website. It does not represent anything, and does not have any default behaviour or styling (aside from what the browser adds to it through the user agent settings). It can be styled however we want it with CSS through the class or id attributes.
+
 > A useful resource on what section to use and when: [HTML5 element flowchart](http://html5doctor.com/downloads/h5d-sectioning-flowchart.pdf)
 
+## 1.5 navigation
+
+Navigation is done through links between pages. This can be done through the "anchor" ```<a>``` elements.
+
+An anchor can be local relative, page-local, or global, but it can also handle e-mail links.
+
+Let's see an example of each.
+
+Global and local link first. A global link can reference any website on the internet. A local link is to another page of our website or application, therefore we don't have to supply it full paths.
+```
+<a href="https://google.com">Link 1</a>
+
+<a href="/some/path">Link 2</a>
+```
+
+A link to a section of a page require an element with an id to be set. If we click on it if it is outside of our screen, the browser will jump to it.
+
+```
+<a href="#cats">Link to cats</a>
+[...]
+
+<span id="cats">Cats</span>
+```
+
+Lastly, with an anchor tag we can also link to e-mail addresses.
+
+```
+<a href="mailto:example@example.com?Subject=Hello">Write an e-mail!</a>
+```
+
+> Options for the \<a> are target and download. Find out what they do, and why are they useful! [[link]](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a)
+
+## 1.6 forms
+
+Aside from various clickable surfaces and buttons, forms and input elements inside forms are the main way to get input from the user.
+
+A form is a grouping of input elements, labels and buttons.
+It has an opening and a closing tag, with the opening having action and method attributes that specify the endpoint in the server where we send the submitted information.
+
+```
+<form action="http://example.com" method="post">
+[...]
+</form>
+```
+
+> We will learn about backend communication as well as what does the method means later.
+
+### 1.6.1 input tags and labels
+
+```<input>``` tags can be of a great number of types. They can behave, look, and validate input differently.
+
+Including but not limited to:
+- text
+- multiline text (textarea)
+- password
+- number
+- radio
+- checkbox
+- button
+- file
+- date
+- time
+- email
+- color
+- range
+- lists
+- searchable lists
+
+Input tags are usually associated with ```<label>```s that act as tooltip and helpful descriptions also focusing on the input fields when clicked.
+
+To that end, we can either embed the input field inside a label
+
+```
+<label>Name:
+    <input type="text">
+</label>
+```
+
+or associate them through the ```for``` and ```id``` attributes.
+
+```
+<label for="name">Name:</label>
+<input type="text" id="name">
+```
+
+
+Instead of detailing all of them here, let's see an example showcasing the differences and usages of the various input types. Open and download [formshowcase.html](./resources/formshowcase.html) from the resources folder.
+
+
+
+### 1.6.2 useful input attributes
+
+There are a few attributes that are used extensively, such as setting a placeholder value for a text field, making a form element uninteractable, or unmodifiable, disabling browser auto-completion functions or automatically focusing an element.
+
+```
+<input type="text" placeholder="Search...">
+<input type="text" readonly>
+<input type="text" disabled>
+<input type="text" autocomplete="off">
+<input type="text" autofocus>
+```
+
+
+### 1.6.4 validation
+
+Lastly, some primitive validation of the values entered or selected can be done through HTML.
+
+We can make a field required, set the minimum or maximum length of the characters entered, or validate the entered text with regular expressions.
+
+```
+<input type="text" required>
+<input type="text" maxlength="10">
+<input type="number" min="1" max="10" step="1">
+<input type="text" name="code" pattern="[A-Za-z0-9]{10}">
+```
+
+>  We will see much more powerful options for validation with JavaScript, but keep in mind, that these validations are only for presenting it nicely to the user. <span style="color:red">Data have to be validated on the server side (as well), as client side validation is unsecure and trivially circumventable!</span>
+
+### 1.7 media
+
+Media can be image, audio video, or even embedded documents among others.
+
+> Download and open [mediashowcase.html](./resources/mediashowcase.html) as well as [ba001.jpeg](./resources/ba001.jpeg).
+
+They all have their respective elements being ```<img>```, ```<audio>```, ```<video>``` and ```<iframe>```.
+
+Image is the simplest one allowing us to define a source (```src=""```), then optional parametres like styling, height (```height=""```), width (```width=""```).
+
+Audio and video elements also have closing tags therefore can have child elements as well.
+Usually what is inbetween is one or more source elements defining the actual media resource. If the browser can not find or play the first source, then it tries to play the second and so on.
+
+```
+<video>
+    <source src="..." type="video/mp4">
+    <source src="..." type="video/ogg">
+</video>
+```
+
+They can also have a wide variety of attributes like ```controls```, ```muted```, ```autoplay```, ```loop``` and [others](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video).
+
+Lastly iframes are (~~not apple products~~) embedded browsing contexts, webpages running inside a sandboxed window inside our pages. Programmable interaction with them are very limited in addition to many pages outright blocking loading inside an iframe. However, for all intents and purposes they are just a normal new browsing tab or window otherwise.

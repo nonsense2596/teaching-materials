@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form showcase</title>
+</head>
+<body>
+    <form>
+        <label>Enter your name:
+            <input type="text">
+        </label>
+
+        <hr>
+
+        <label for="passwordfield">Enter your password:</label>
+        <input type="password" id="passwordfield">
+
+        <hr>
+
+        <label>File section:
+            <input type="file" multiple>
+        </label>
+
+        <hr>
+
+        <label> Date of birth:
+            <input type="date">
+            <input type="time">
+        </label>
+
+        <hr>
+
+        <label> Age:
+            <input type="number" min="0" max="100" step="1">
+        </label>
+
+        <hr>
+
+        <label> E-mail address:
+            <input type="email">
+        </label>
+
+        <hr>
+
+        <label> Favourite colour:
+            <input type="color">
+        </label>
+
+        <hr>
+
+        <label>Your number of cars (0-5):
+            <input type="range" min="0" max="5">
+        </label>
+
+        <hr>
+
+        Favourite browser:
+        <br>
+        <label> Firefox
+            <input type="radio" name="browser">
+        </label>
+        <br>
+        <label> Chrome
+            <input type="radio" name="browser">
+        </label>
+        <br>
+        <label> Safari
+            <input type="radio" name="browser">
+        </label>
+        <br>
+        <label> Edge
+            <input type="radio" name="browser">
+        </label>
+
+        <hr>
+
+        <label>Favourite animal:
+            <select>
+                <optgroup label="Birds">
+                    <option value="pigeon">Pigeon</option>
+                    <option value="seagull">Seagull</option>
+                </optgroup>
+                <optgroup label="Mammals">
+                    <option value="elephant">Elephant</option>
+                    <option value="lion">Lion</option>
+                </optgroup>
+            </select>
+        </label>
+
+        <hr>
+
+        <label>
+            Favourite programming language:
+            <input list="langs">
+        </label>
+        <datalist id="langs">
+            <option value="JavaScript"></option>
+            <option value="PHP"></option>
+            <option value="Haskell"></option>
+            <option value="Java"></option>
+        </datalist>
+
+        <hr>
+
+
+        <input type="submit" value="Click me to submit!">
+    </form>
+</body>
+</html>
