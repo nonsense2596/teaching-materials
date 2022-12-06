@@ -314,6 +314,8 @@ git diff
 
 Before going into branching, one last thing that is worth to mention is partial commits. It is a useful tool when we want to commit only a part of a file.
 
+> Partial commits are also referred to as hunks.
+
 Create a new file called "partialtest.txt" with the following contents:
 
 ```
