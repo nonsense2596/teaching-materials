@@ -970,7 +970,9 @@ where number is the one
 
 ## 4.4 amend
 
-With amend, we can modify the last commit: content or message too easily.
+With amend, we can "modify" the last commit: content or message too easily.
+
+> Actually not modify, but create a new one that will replace the previous commit with its original and modified contents.
 
 Let's see it with an example. We add to the file, stage and commit it.
 
