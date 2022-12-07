@@ -1067,5 +1067,3 @@ However there may be cases where there are conflicts between the two histories. 
 ```
 git push -f
 ```
-
-## 4.8 pull requests, and reviews
